@@ -1,33 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
+using System;
 using UnityEngine;
-using System.Windows.Forms.Timer;
 
 public class GameManager : MonoBehaviour
 {
     public int layer;
     public int soul;
     public string realTimeLabel;
-    public string layerTimeLabel;
+    public int layerTime;
     private Timer realTimeTimer;
     private DateTime realDateTime;
     private Timer layerTimeTimer;
-    private DateTime layerDateTime;
 
     // Start is called before the first frame update
     void Start()
     {
         layer = 1;
         soul = 0;
-        realDateTime = new DateTime(2022, 10, 10, 0, 0);
-        realTimeTimer = new Timer();
-        realTimeTimer.Interval = 500;
-        realTimeTimer.Tick = new EventHandler(RealTimeTick);
+        SetTimers();
     }
 
-    public void RealTimeTick(object sender, EventArgs e)
+    private void RealTimeTick(object sender, EventArgs e)
     {
-        realTimeLabel = realDateTime.
+        realDateTime.AddMinutes(1);
+        realTimeLabel = realDateTime.ToString("HH:mm");
+    }
+
+    private void LayerTimeTick(object sender, EventArgs e)
+    {
+        layerTime--;
+    }
+
+    private void SetTimers()
+    {
+        realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
+        realTimeTimer = new Timer
+        {
+            Interval = 500
+        };
+        realTimeTimer.Elapsed += RealTimeTick;
+        realTimeTimer.Enabled = true;
+        layerTimeTimer = new Timer
+        {
+            Interval = 1000
+        };
+        layerTimeTimer.Elapsed += LayerTimeTick;
+        layerTimeTimer.Enabled = true;
     }
 
     // Update is called once per frame
