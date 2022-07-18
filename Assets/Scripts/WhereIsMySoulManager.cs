@@ -9,6 +9,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int soul;
     public string realTimeLabel;
     public int layerTime;
+    
     private Timer realTimeTimer;
     private DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
