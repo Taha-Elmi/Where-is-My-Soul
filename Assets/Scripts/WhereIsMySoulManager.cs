@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Timers;
 using System;
 using UnityEngine;
@@ -42,6 +40,7 @@ public class GameManager : MonoBehaviour
         };
         realTimeTimer.Elapsed += RealTimeTick;
         realTimeTimer.Enabled = true;
+        layerTime = 60;
         layerTimeTimer = new Timer
         {
             Interval = 1000
