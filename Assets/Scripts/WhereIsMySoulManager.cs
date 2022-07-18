@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private Timer realTimeTimer;
     private DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
+    private static int layerTimeInitialValue = 60;
     private Timer layerTimeTimer;
 
     // Start is called before the first frame update
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
         layer = 1;
         soul = 0;
         SetTimers();
+        realTimeTimer.Start();
+        layerTimeTimer.Start();
     }
 
     private void RealTimeTick(object sender, EventArgs e)
@@ -39,6 +42,7 @@ public class GameManager : MonoBehaviour
     private void downLayer()
     {
         layer += 1;
+        ResetForNewLayer();
     }
 
     private void SetTimers()
@@ -50,7 +54,7 @@ public class GameManager : MonoBehaviour
         };
         realTimeTimer.Elapsed += RealTimeTick;
         realTimeTimer.Enabled = true;
-        layerTime = 60;
+        layerTime = layerTimeInitialValue;
         layerTimeTimer = new Timer
         {
             Interval = 1000
@@ -65,6 +69,7 @@ public class GameManager : MonoBehaviour
         if (realDateTime >= looseTime)
         {
             GameOver();
+            return;
         }
         if (soul >= 100)
         {
@@ -83,11 +88,21 @@ public class GameManager : MonoBehaviour
         if (layer < 1)
         {
             Win();
-        } 
+            return;
+        }
+        ResetForNewLayer();
     }
 
     public void Win()
     {
         
+    }
+
+    public void ResetForNewLayer()
+    {
+        layerTimeTimer.Stop();
+        soul = 0;
+        layerTime = layerTimeInitialValue;
+        layerTimeTimer.Start();
     }
 }
