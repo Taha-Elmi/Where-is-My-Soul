@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int layerTime;
     private Timer realTimeTimer;
     private DateTime realDateTime;
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private Timer layerTimeTimer;
 
     // Start is called before the first frame update
@@ -29,6 +30,15 @@ public class GameManager : MonoBehaviour
     private void LayerTimeTick(object sender, EventArgs e)
     {
         layerTime--;
+        if (layerTime <=0)
+        {
+            downLayer();
+        } 
+    }
+
+    private void downLayer()
+    {
+        layer += 1;
     }
 
     private void SetTimers()
@@ -52,6 +62,32 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (realDateTime >= looseTime)
+        {
+            GameOver();
+        }
+        if (soul >= 100)
+        {
+            upLayer();
+        } 
+    }
 
+    public void GameOver()
+    {
+        
+    }
+
+    private void upLayer()
+    {
+        layer -= 1;
+        if (layer < 1)
+        {
+            Win();
+        } 
+    }
+
+    public void Win()
+    {
+        
     }
 }
