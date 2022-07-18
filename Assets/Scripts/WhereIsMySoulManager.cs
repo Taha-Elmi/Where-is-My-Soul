@@ -11,7 +11,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int layerTime;
     private Timer realTimeTimer;
     private DateTime realDateTime;
-    private static DateTime looseTime = new DateTime(2022, 10, 10, 2, 0, 0);
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private static int layerTimeInitialValue = 60;
     private static string deathSceneName = "death"; 
     private static string awakeningSceneName = "awakening"; 
@@ -82,6 +82,8 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void GameOver()
     {
+        realTimeTimer.Stop();
+        layerTimeTimer.Stop();
         SceneManager.LoadScene(deathSceneName);
 
     }
@@ -99,6 +101,8 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void Win()
     {
+        layerTimeTimer.Stop();
+        realTimeTimer.Stop();
         SceneManager.LoadScene(awakeningSceneName);
     }
 
