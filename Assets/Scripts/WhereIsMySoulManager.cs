@@ -75,7 +75,7 @@ public class WhereIsMySoulManager : MonoBehaviour
             GameOver();
             return;
         }
-        if (soul >= 100)
+        if (soul >= 15)
         {
             upLayer();
         } 
