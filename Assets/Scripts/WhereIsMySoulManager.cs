@@ -1,6 +1,7 @@
 using System.Timers;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     private DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private static int layerTimeInitialValue = 60;
+    private static string deathSceneName = "death"; 
+    private static string awakeningSceneName = "awakening"; 
     private Timer layerTimeTimer;
 
     // Start is called before the first frame update
@@ -79,7 +82,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        
+        SceneManager.LoadScene(deathSceneName);
+
     }
 
     private void upLayer()
@@ -95,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-        
+        SceneManager.LoadScene(awakeningSceneName);
     }
 
     public void ResetForNewLayer()
