@@ -49,6 +49,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     {
         realTimeTimer.Stop();
         layerTimeTimer.Stop();
+        ResetObjectPositions();
     }
 
     private void RealTimeTick(object sender, EventArgs e)
@@ -170,7 +171,27 @@ public class WhereIsMySoulManager : MonoBehaviour
         layerTimeTimer.Stop();
         realTimeTimer.Interval = realTimeInitialValue + (layer * 250);
         soul = 0;
+        ResetObjectPositions();
         layerTime = layerTimeInitialValue + (layer * 5);
         layerTimeTimer.Start();
+    }
+
+    private void ResetObjectPositions()
+    {
+        foreach (Transform star in stars)
+        {
+            GameObject obj = star.gameObject;
+            obj.gameObject.SetActive(false);
+            float x = Random.Range(-7, 7);
+            obj.gameObject.transform.position = new Vector3(x, 6.0f, 0);
+        }
+        
+        foreach (Transform soulGrabber in soulGrabbers)
+        {
+            GameObject obj = soulGrabber.gameObject;
+            obj.gameObject.SetActive(false);
+            float x = Random.Range(-7, 7);
+            obj.gameObject.transform.position = new Vector3(x, 6.0f, 0);
+        }
     }
 }
