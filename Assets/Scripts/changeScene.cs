@@ -20,5 +20,6 @@ public class changeScene : MonoBehaviour
 	private void OnMouseDown()
 	{
         SceneManager.LoadScene(sceneName);
+        Destroy(this);
 	}
 }
