@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NoteBookController : MonoBehaviour
 {
@@ -8,14 +9,14 @@ public class NoteBookController : MonoBehaviour
     public GameObject prevButton;
     public GameObject closeButton;
     public int noteBookPageNumber;
-    private SpriteRenderer spriteRenderer;
+    private Image image;
     public Sprite[] noteBookPages;
     private int currentPgNum=0;
     
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
+        image = this.GetComponent<Image>();
         noteBookPages = new Sprite[noteBookPageNumber];
 
         for (int i = 0; i < noteBookPageNumber; i++)
@@ -23,7 +24,7 @@ public class NoteBookController : MonoBehaviour
             Sprite page = Resources.Load<Sprite>("Sprites/page"+ i.ToString());
             noteBookPages[i] = page;
         }
-        spriteRenderer.sprite = noteBookPages[currentPgNum];
+        image.sprite = noteBookPages[currentPgNum];
 
 
     }
@@ -42,7 +43,7 @@ public class NoteBookController : MonoBehaviour
     {
         if (currentPgNum + pagingValue != noteBookPageNumber && currentPgNum + pagingValue != -1) { 
         currentPgNum += pagingValue;
-        spriteRenderer.sprite = noteBookPages[currentPgNum];
+        image.sprite = noteBookPages[currentPgNum];
     }
     }
     

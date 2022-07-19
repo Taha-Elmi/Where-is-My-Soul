@@ -3,12 +3,13 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class WhereIsMySoulManager : MonoBehaviour
 {
     public int layer;
     public int soul;
     public string realTimeLabel;
     public int layerTime;
+    
     private Timer realTimeTimer;
     private DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void RealTimeTick(object sender, EventArgs e)
     {
-        realDateTime.AddMinutes(1);
+        realDateTime = realDateTime.AddMinutes(1);
         realTimeLabel = realDateTime.ToString("HH:mm");
     }
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
         if (layerTime <=0)
         {
             downLayer();
-        } 
+        }
     }
 
     private void downLayer()
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
             GameOver();
             return;
         }
-        if (soul >= 100)
+        if (soul >= 15)
         {
             upLayer();
         } 
@@ -82,6 +83,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        realTimeTimer.Stop();
+        layerTimeTimer.Stop();
         SceneManager.LoadScene(deathSceneName);
 
     }
@@ -99,6 +102,8 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
+        layerTimeTimer.Stop();
+        realTimeTimer.Stop();
         SceneManager.LoadScene(awakeningSceneName);
     }
 
