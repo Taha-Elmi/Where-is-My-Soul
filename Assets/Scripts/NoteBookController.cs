@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NoteBookController : MonoBehaviour
 {
@@ -8,35 +9,42 @@ public class NoteBookController : MonoBehaviour
     public GameObject prevButton;
     public GameObject closeButton;
     public int noteBookPageNumber;
-    private SpriteRenderer spriteRenderer;
-    Sprite[] noteBookPages;
+    private Image image;
+    public Sprite[] noteBookPages;
     private int currentPgNum=0;
+    
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = noteBookPages[currentPgNum];
+        image = this.GetComponent<Image>();
+        noteBookPages = new Sprite[noteBookPageNumber];
+
+        for (int i = 0; i < noteBookPageNumber; i++)
+        {
+            Sprite page = Resources.Load<Sprite>("Sprites/page"+ i.ToString());
+            noteBookPages[i] = page;
+        }
+        image.sprite = noteBookPages[currentPgNum];
+
 
     }
     private void Awake()
 	{
-        for (int i = 0; i < noteBookPageNumber; i++)
-        {
-            Sprite page = Resources.Load("page" + i, typeof(Sprite)) as Sprite;
-            noteBookPages[i] = page;
-        }
+       
     }
 
-	// Update is called once per frame
-	void Update()
+    // Update is called once per frame
+    void Update()
     {
         
 	
     }
     public void setPage(int pagingValue)
-	{
-        currentPgNum+=pagingValue;
-        spriteRenderer.sprite = noteBookPages[currentPgNum];
+    {
+        if (currentPgNum + pagingValue != noteBookPageNumber && currentPgNum + pagingValue != -1) { 
+        currentPgNum += pagingValue;
+        image.sprite = noteBookPages[currentPgNum];
+    }
     }
     
 }
