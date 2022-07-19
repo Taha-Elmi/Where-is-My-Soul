@@ -12,8 +12,9 @@ public class WhereIsMySoulManager : MonoBehaviour
     
     private Timer realTimeTimer;
     private DateTime realDateTime;
-    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 8, 0, 0);
     private static int layerTimeInitialValue = 60;
+    private static int realTimeInitialValue = 2000;
     private static string deathSceneName = "death"; 
     private static string awakeningSceneName = "awakening"; 
     private Timer layerTimeTimer;
@@ -32,6 +33,10 @@ public class WhereIsMySoulManager : MonoBehaviour
     {
         realDateTime = realDateTime.AddMinutes(1);
         realTimeLabel = realDateTime.ToString("HH:mm");
+        if (realDateTime >= looseTime)
+        {
+            GameOver();
+        }
     }
 
     private void LayerTimeTick(object sender, EventArgs e)
@@ -54,7 +59,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
         realTimeTimer = new Timer
         {
-            Interval = 500
+            Interval = realTimeInitialValue
         };
         realTimeTimer.Elapsed += RealTimeTick;
         realTimeTimer.Enabled = true;
@@ -70,12 +75,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (realDateTime >= looseTime)
-        {
-            GameOver();
-            return;
-        }
-        if (soul >= 15)
+        if (soul >= 100)
         {
             upLayer();
         } 
@@ -110,6 +110,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public void ResetForNewLayer()
     {
         layerTimeTimer.Stop();
+        realTimeTimer.Interval = (realTimeInitialValue / layer);
         soul = 0;
         layerTime = layerTimeInitialValue;
         layerTimeTimer.Start();
