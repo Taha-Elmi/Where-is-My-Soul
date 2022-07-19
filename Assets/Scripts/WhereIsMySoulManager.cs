@@ -12,8 +12,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int layerTime;
     public GameObject starParent;
     public GameObject soulGrabberParent;
-    public GameObject gameObject;
-    public Transform temp;
+    public float fallPeriod;
     
     private Timer realTimeTimer;
     private DateTime realDateTime;
@@ -24,40 +23,32 @@ public class WhereIsMySoulManager : MonoBehaviour
     private static string awakeningSceneName = "awakening"; 
     private Timer layerTimeTimer;
     private Transform[] stars;
-    private GameObject[] starsObjs;
     private Transform[] soulGrabbers;
     private int currentStar;
     private int currentSoulGrabber;
-    private Timer objectFallTimer;
-
-    private GameObject[] starChildren;
-
+    private float time;
+    
     // Start is called before the first frame update
     void Start()
     {
         layer = 1;
         soul = 0;
+        fallPeriod = 2;
+        time = 0;
         stars = starParent.transform.GetComponentsInChildren<Transform>(true);
         currentStar = 1;
-        starsObjs = new GameObject[stars.Length];
-        for (int i = 0; i < stars.Length; i++)
-        {
-            starsObjs[i] = stars[i].gameObject;
-        }
         soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
         currentSoulGrabber = 1;
 
         SetTimers();
         realTimeTimer.Start();
         layerTimeTimer.Start();
-        objectFallTimer.Start();
     }
 
     private void OnDestroy()
     {
         realTimeTimer.Stop();
         layerTimeTimer.Stop();
-        objectFallTimer.Stop();
     }
 
     private void RealTimeTick(object sender, EventArgs e)
@@ -79,21 +70,12 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
     }
 
-
-    private GameObject getGameObjectFromTransform(Transform t)
+    private void ObjectFall()
     {
-        return t.gameObject;
-    }
-    
-    private void ObjectFall(object sender, EventArgs e)
-    {
+        GameObject fallObject;
         if (soul == 0 || Random.value < 0.5)
         {
-            gameObject = starsObjs[currentStar];
-            
-            print("soul");
-            print("the index is: " + currentStar);
-            print("len stars is: " + stars.Length);
+            fallObject = stars[currentStar].gameObject;
 
             currentStar++;
             if (currentStar >= stars.Length)
@@ -104,8 +86,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
         else
         {
-            print("grabber");
-            gameObject = soulGrabbers[currentSoulGrabber].gameObject;
+            fallObject = soulGrabbers[currentSoulGrabber].gameObject;
 
             currentSoulGrabber++;
             if (currentSoulGrabber >= soulGrabbers.Length)
@@ -114,14 +95,7 @@ public class WhereIsMySoulManager : MonoBehaviour
             }
         }
 
-        // float x = Random.Range(-7, 7);
-        float x = 5.0f;
-        print("before pos set");
-        gameObject.transform.position.Set(x, gameObject.transform.position.y, gameObject.transform.position.z);
-        print("after pos set");
-        
-        gameObject.SetActive(true);
-        print("activated");
+        fallObject.SetActive(true);
     }
 
     private void downLayer()
@@ -147,18 +121,18 @@ public class WhereIsMySoulManager : MonoBehaviour
         };
         layerTimeTimer.Elapsed += LayerTimeTick;
         layerTimeTimer.Enabled = true;
-        
-        objectFallTimer = new Timer
-        {
-            Interval = 2000
-        };
-        objectFallTimer.Elapsed += ObjectFall;
-        objectFallTimer.Enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        time += 1.0f * Time.deltaTime;
+        if (time >= fallPeriod)
+        {
+            ObjectFall();
+            time = 0;
+        }
+        
         if (soul >= 100)
         {
             upLayer();
