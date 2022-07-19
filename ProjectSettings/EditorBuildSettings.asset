@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/mainMenu.unity
     guid: 436f17767f285c3438ec85a42db64c34
+  - enabled: 1
+    path: Assets/Scenes/noteBook.unity
+    guid: 55024887c13814541935a02fea6cdee8
   m_configObjects: {}

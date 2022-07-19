@@ -16,21 +16,13 @@ public class NoteBookController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        image = this.GetComponent<Image>();
-        noteBookPages = new Sprite[noteBookPageNumber];
-
-        for (int i = 0; i < noteBookPageNumber; i++)
-        {
-            Sprite page = Resources.Load<Sprite>("Sprites/page"+ i.ToString());
-            noteBookPages[i] = page;
-        }
-        image.sprite = noteBookPages[currentPgNum];
-
+       
 
     }
     private void Awake()
 	{
-       
+        loadInitData();
+
     }
 
     // Update is called once per frame
@@ -38,6 +30,18 @@ public class NoteBookController : MonoBehaviour
     {
         
 	
+    }
+    public void loadInitData()
+	{
+        image = this.GetComponent<Image>();
+        noteBookPages = new Sprite[noteBookPageNumber];
+
+        for (int i = 0; i < noteBookPageNumber; i++)
+        {
+            Sprite page = Resources.Load<Sprite>("Sprites/page" + i.ToString());
+            noteBookPages[i] = page;
+        }
+        image.sprite = noteBookPages[currentPgNum];
     }
     public void setPage(int pagingValue)
     {
