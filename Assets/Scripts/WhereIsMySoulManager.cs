@@ -13,8 +13,8 @@ public class WhereIsMySoulManager : MonoBehaviour
     private Timer realTimeTimer;
     private DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 8, 0, 0);
-    private static int layerTimeInitialValue = 60;
-    private static int realTimeInitialValue = 2000;
+    private static int layerTimeInitialValue = 20;
+    private static int realTimeInitialValue = 250;
     private static string deathSceneName = "death"; 
     private static string awakeningSceneName = "awakening"; 
     private Timer layerTimeTimer;
@@ -110,9 +110,9 @@ public class WhereIsMySoulManager : MonoBehaviour
     public void ResetForNewLayer()
     {
         layerTimeTimer.Stop();
-        realTimeTimer.Interval = (realTimeInitialValue / layer);
+        realTimeTimer.Interval = realTimeInitialValue + (layer * 250);
         soul = 0;
-        layerTime = layerTimeInitialValue;
+        layerTime = layerTimeInitialValue + (layer * 5);
         layerTimeTimer.Start();
     }
 }
