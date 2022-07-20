@@ -5,10 +5,12 @@ using UnityEngine;
 public class KidController : MonoBehaviour
 {
     public float speed;
+    public float fastRatio;
     // Start is called before the first frame update
     void Start()
     {
-        
+        speed = 5;
+        fastRatio = 2;
     }
 
     // Update is called once per frame
@@ -18,7 +20,7 @@ public class KidController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                transform.Translate(speed * Time.deltaTime, 0, 0);
+                transform.Translate(speed * fastRatio * Time.deltaTime, 0, 0);
 
             }
             else
@@ -32,7 +34,7 @@ public class KidController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                transform.Translate(-speed * Time.deltaTime, 0, 0);
+                transform.Translate(-speed * fastRatio * Time.deltaTime, 0, 0);
             }
             else
             {

@@ -10,9 +10,11 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int soul;
     public string realTimeLabel;
     public int layerTime;
+    public int maxSouls;
     public GameObject starParent;
     public GameObject soulGrabberParent;
     public float fallPeriod;
+    public GameObject theKid;
     
     private Timer realTimeTimer;
     private DateTime realDateTime;
@@ -33,6 +35,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     {
         layer = 1;
         soul = 0;
+        maxSouls = 10;
         fallPeriod = 2;
         time = 0;
         stars = starParent.transform.GetComponentsInChildren<Transform>(true);
@@ -130,11 +133,12 @@ public class WhereIsMySoulManager : MonoBehaviour
         time += 1.0f * Time.deltaTime;
         if (time >= fallPeriod)
         {
+            print("I'm here.");
             ObjectFall();
             time = 0;
         }
         
-        if (soul >= 100)
+        if (soul >= maxSouls)
         {
             upLayer();
         } 
@@ -171,27 +175,32 @@ public class WhereIsMySoulManager : MonoBehaviour
         layerTimeTimer.Stop();
         realTimeTimer.Interval = realTimeInitialValue + (layer * 250);
         soul = 0;
-        ResetObjectPositions();
         layerTime = layerTimeInitialValue + (layer * 5);
+        ResetObjectPositions();
         layerTimeTimer.Start();
     }
 
     private void ResetObjectPositions()
     {
-        foreach (Transform star in stars)
+
+        for (int i = 1; i < stars.Length; i++)
         {
-            GameObject obj = star.gameObject;
+            GameObject obj = stars[i].gameObject;
             obj.gameObject.SetActive(false);
             float x = Random.Range(-7, 7);
             obj.gameObject.transform.position = new Vector3(x, 6.0f, 0);
         }
-        
-        foreach (Transform soulGrabber in soulGrabbers)
+
+        for (int i = 1; i < soulGrabbers.Length; i++)
         {
-            GameObject obj = soulGrabber.gameObject;
+            GameObject obj = soulGrabbers[i].gameObject;
             obj.gameObject.SetActive(false);
             float x = Random.Range(-7, 7);
             obj.gameObject.transform.position = new Vector3(x, 6.0f, 0);
         }
+
+        Color color = theKid.GetComponent<SpriteRenderer>().color;
+        Color newColor = new Color(color.r, color.g, color.b, 0.01f);
+        theKid.GetComponent<SpriteRenderer>().color = newColor;
     }
 }
