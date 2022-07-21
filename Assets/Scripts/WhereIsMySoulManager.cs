@@ -143,7 +143,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         if (soul >= maxSouls)
         {
             upLayer();
-        } 
+        }
     }
 
     public void GameOver()
