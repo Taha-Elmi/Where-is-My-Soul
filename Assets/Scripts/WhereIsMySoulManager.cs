@@ -13,49 +13,52 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int maxSouls;
     public GameObject starParent;
     public GameObject soulGrabberParent;
-    public float fallPeriod;
+    public double fallPeriod;
+    public double realTimePeriod;
+    public double layerTimePeriod;
     public GameObject theKid;
-    
-    private Timer realTimeTimer;
+
+    private float realTimeTimer;
     private DateTime realDateTime;
-    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 2, 0, 0);
     private static int layerTimeInitialValue = 20;
-    private static int realTimeInitialValue = 250;
+    private static double realTimePeriodInitialValue = 0.25;
+    private static double fallTimePeriodInitialValue = 0.1;
     private static string deathSceneName = "death"; 
-    private static string awakeningSceneName = "awakening"; 
-    private Timer layerTimeTimer;
+    private static string awakeningSceneName = "awakening";
+    private float layerTimeTimer;
     private Transform[] stars;
     private Transform[] soulGrabbers;
     private int currentStar;
     private int currentSoulGrabber;
-    private float time;
+    private float fallTime;
     
     // Start is called before the first frame update
     void Start()
     {
         layer = 1;
         soul = 0;
-        maxSouls = 2;
-        fallPeriod = 2;
-        time = 0;
+        maxSouls = 12;
+        fallPeriod = fallTimePeriodInitialValue;
+        fallTime = 0;
         stars = starParent.transform.GetComponentsInChildren<Transform>(true);
         currentStar = 1;
         soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
         currentSoulGrabber = 1;
-
-        SetTimers();
-        realTimeTimer.Start();
-        layerTimeTimer.Start();
+        realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
+        layerTimePeriod = 1;
+        realTimePeriod = 0.25;
+        layerTimeTimer = 0;
+        realTimeTimer = 0;
+        layerTime = layerTimeInitialValue;
     }
 
     private void OnDestroy()
     {
-        realTimeTimer.Stop();
-        layerTimeTimer.Stop();
         ResetObjectPositions();
     }
 
-    private void RealTimeTick(object sender, EventArgs e)
+    private void RealTimeTick()
     {
         realDateTime = realDateTime.AddMinutes(1);
         realTimeLabel = realDateTime.ToString("HH:mm");
@@ -65,7 +68,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
     }
 
-    private void LayerTimeTick(object sender, EventArgs e)
+    private void LayerTimeTick()
     {
         layerTime--;
         if (layerTime <=0)
@@ -108,33 +111,27 @@ public class WhereIsMySoulManager : MonoBehaviour
         ResetForNewLayer();
     }
 
-    private void SetTimers()
-    {
-        realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
-        realTimeTimer = new Timer
-        {
-            Interval = realTimeInitialValue
-        };
-        realTimeTimer.Elapsed += RealTimeTick;
-        realTimeTimer.Enabled = true;
-        
-        layerTime = layerTimeInitialValue;
-        layerTimeTimer = new Timer
-        {
-            Interval = 1000
-        };
-        layerTimeTimer.Elapsed += LayerTimeTick;
-        layerTimeTimer.Enabled = true;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        time += 1.0f * Time.deltaTime;
-        if (time >= fallPeriod)
+        fallTime += 1.0f * Time.deltaTime;
+        realTimeTimer += 1.0f * Time.deltaTime;
+        layerTimeTimer += 1.0f * Time.deltaTime;
+
+        if (layerTimeTimer >= layerTimePeriod)
+        {
+            LayerTimeTick();
+            layerTimeTimer = 0;
+        }
+        if (realTimeTimer >= realTimePeriod)
+        {
+            RealTimeTick();
+            realTimeTimer = 0;
+        }
+        if (fallTime >= fallPeriod)
         {
             ObjectFall();
-            time = 0;
+            fallTime = 0;
         }
         
         if (soul >= maxSouls)
@@ -145,10 +142,8 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void GameOver()
     {
-        realTimeTimer.Stop();
-        layerTimeTimer.Stop();
+        ResetObjectPositions();
         SceneManager.LoadScene(deathSceneName);
-
     }
 
     private void upLayer()
@@ -164,24 +159,21 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void Win()
     {
-        layerTimeTimer.Stop();
-        realTimeTimer.Stop();
+        ResetObjectPositions();
         SceneManager.LoadScene(awakeningSceneName);
     }
 
     public void ResetForNewLayer()
     {
-        layerTimeTimer.Stop();
-        realTimeTimer.Interval = realTimeInitialValue + (layer * 250);
+        fallPeriod = fallTimePeriodInitialValue * layer;
+        realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         soul = 0;
-        layerTime = layerTimeInitialValue + (layer * 5);
+        layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         ResetObjectPositions();
-        layerTimeTimer.Start();
     }
 
     private void ResetObjectPositions()
     {
-
         for (int i = 1; i < stars.Length; i++)
         {
             GameObject obj = stars[i].gameObject;
