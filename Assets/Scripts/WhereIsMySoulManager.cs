@@ -40,10 +40,10 @@ public class WhereIsMySoulManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        layer = 1;
+        layer = 3;
         soul = 0;
-        maxSouls = 12;
-        fallPeriod = fallTimePeriodInitialValue;
+        maxSouls = 16;
+        fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
         fallTime = 0;
         stars = starParent.transform.GetComponentsInChildren<Transform>(true);
         currentStar = 1;
@@ -51,11 +51,11 @@ public class WhereIsMySoulManager : MonoBehaviour
         currentSoulGrabber = 1;
         realDateTime = initialRealTime;
         layerTimePeriod = 1;
-        realTimePeriod = 0.25;
+        realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         layerTimeTimer = 0;
         realTimeTimer = 0;
-        fallIconSpeed = -0.725;
-        layerTime = layerTimeInitialValue;
+        fallIconSpeed = -0.75;
+        layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         ResetObjectPositions();
     }
 
@@ -169,7 +169,7 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void ResetForNewLayer()
     {
-        fallPeriod = fallTimePeriodInitialValue * layer;
+        fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
@@ -195,7 +195,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
 
         Color color = theKid.GetComponent<SpriteRenderer>().color;
-        Color newColor = new Color(color.r, color.g, color.b, 0.01f);
+        Color newColor = new Color(color.r, color.g, color.b, 0.1f);
         theKid.GetComponent<SpriteRenderer>().color = newColor;
 
         color = sky1.color;
