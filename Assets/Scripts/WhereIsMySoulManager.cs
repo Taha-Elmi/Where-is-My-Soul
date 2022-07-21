@@ -21,7 +21,8 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     private float realTimeTimer;
     private DateTime realDateTime;
-    private static DateTime looseTime = new DateTime(2022, 10, 10, 2, 0, 0);
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
+    private static DateTime initialRealTime = new DateTime(2022, 10, 10, 0, 0, 0);
     private static int layerTimeInitialValue = 20;
     private static double realTimePeriodInitialValue = 0.25;
     private static double fallTimePeriodInitialValue = 0.1;
@@ -33,7 +34,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     private int currentStar;
     private int currentSoulGrabber;
     private float fallTime;
-    public float fallIconSpeed;
+    public double fallIconSpeed;
     
     // Start is called before the first frame update
     void Start()
@@ -47,12 +48,12 @@ public class WhereIsMySoulManager : MonoBehaviour
         currentStar = 1;
         soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
         currentSoulGrabber = 1;
-        realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
+        realDateTime = initialRealTime;
         layerTimePeriod = 1;
         realTimePeriod = 0.25;
         layerTimeTimer = 0;
         realTimeTimer = 0;
-        fallIconSpeed = (float)-1;
+        fallIconSpeed = -0.725;
         layerTime = layerTimeInitialValue;
         ResetObjectPositions();
     }
@@ -125,7 +126,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         if (realTimeTimer >= realTimePeriod)
         {
             RealTimeTick();
-            fallIcon.transform.Translate(0, fallIconSpeed * Time.deltaTime, 0);
+            fallIcon.transform.Translate(0, (float)fallIconSpeed * Time.deltaTime, 0);
             realTimeTimer = 0;
         }
         if (fallTime >= fallPeriod)

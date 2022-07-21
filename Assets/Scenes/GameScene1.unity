@@ -369,7 +369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer: 0
   soul: 0
-  clock: {fileID: 0}
+  clock: {fileID: 1745688954}
+  fallIcon: {fileID: 1800511964}
   layerTime: 0
   maxSouls: 0
   starParent: {fileID: 1473166078}
@@ -378,6 +379,7 @@ MonoBehaviour:
   realTimePeriod: 0
   layerTimePeriod: 0
   theKid: {fileID: 1561533901}
+  fallIconSpeed: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
