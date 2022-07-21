@@ -18,7 +18,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     
     private Timer realTimeTimer;
     private DateTime realDateTime;
-    private static DateTime looseTime = new DateTime(2022, 10, 10, 8, 0, 0);
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private static int layerTimeInitialValue = 20;
     private static int realTimeInitialValue = 250;
     private static string deathSceneName = "death"; 
@@ -35,7 +35,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     {
         layer = 1;
         soul = 0;
-        maxSouls = 10;
+        maxSouls = 2;
         fallPeriod = 2;
         time = 0;
         stars = starParent.transform.GetComponentsInChildren<Transform>(true);
@@ -133,7 +133,6 @@ public class WhereIsMySoulManager : MonoBehaviour
         time += 1.0f * Time.deltaTime;
         if (time >= fallPeriod)
         {
-            print("I'm here.");
             ObjectFall();
             time = 0;
         }

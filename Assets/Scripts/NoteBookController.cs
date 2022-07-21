@@ -38,7 +38,7 @@ public class NoteBookController : MonoBehaviour
 
         for (int i = 0; i < noteBookPageNumber; i++)
         {
-            Sprite page = Resources.Load<Sprite>("Sprites/page" + i.ToString());
+            Sprite page = Resources.Load<Sprite>("Sprites/Notebook/page" + i.ToString());
             noteBookPages[i] = page;
         }
         image.sprite = noteBookPages[currentPgNum];
