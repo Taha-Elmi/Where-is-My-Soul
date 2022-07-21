@@ -10,6 +10,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int soul;
     public Text clock;
     public SpriteRenderer fallIcon;
+    public SpriteRenderer sky1;
     public int layerTime;
     public int maxSouls;
     public GameObject starParent;
@@ -114,6 +115,8 @@ public class WhereIsMySoulManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        sky1.color -= new Color(0, 0, 0, Time.deltaTime / layerTime);
+
         fallTime += 1.0f * Time.deltaTime;
         realTimeTimer += 1.0f * Time.deltaTime;
         layerTimeTimer += 1.0f * Time.deltaTime;
@@ -194,5 +197,9 @@ public class WhereIsMySoulManager : MonoBehaviour
         Color color = theKid.GetComponent<SpriteRenderer>().color;
         Color newColor = new Color(color.r, color.g, color.b, 0.01f);
         theKid.GetComponent<SpriteRenderer>().color = newColor;
+
+        color = sky1.color;
+        color.a = 1;
+        sky1.color = color;
     }
 }
