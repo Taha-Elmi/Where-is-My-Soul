@@ -15,7 +15,11 @@ public class getFallingObjects : MonoBehaviour
         }
         else
         {
-            manager.soul--;
+            manager.soul -= 5;
+            if (manager.soul < 0)
+            {
+                manager.soul = 0;
+            }
         }
 
         other.gameObject.SetActive(false);
