@@ -9,6 +9,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int layer;
     public int soul;
     public Text clock;
+    public SpriteRenderer fallIcon;
     public int layerTime;
     public int maxSouls;
     public GameObject starParent;
@@ -32,6 +33,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     private int currentStar;
     private int currentSoulGrabber;
     private float fallTime;
+    public float fallIconSpeed;
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         realTimePeriod = 0.25;
         layerTimeTimer = 0;
         realTimeTimer = 0;
+        fallIconSpeed = (float)-1;
         layerTime = layerTimeInitialValue;
         ResetObjectPositions();
     }
@@ -122,6 +125,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         if (realTimeTimer >= realTimePeriod)
         {
             RealTimeTick();
+            fallIcon.transform.Translate(0, fallIconSpeed * Time.deltaTime, 0);
             realTimeTimer = 0;
         }
         if (fallTime >= fallPeriod)
