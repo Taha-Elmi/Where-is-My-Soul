@@ -1,6 +1,6 @@
-using System.Timers;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -8,7 +8,7 @@ public class WhereIsMySoulManager : MonoBehaviour
 {
     public int layer;
     public int soul;
-    public string realTimeLabel;
+    public Text clock;
     public int layerTime;
     public int maxSouls;
     public GameObject starParent;
@@ -51,17 +51,13 @@ public class WhereIsMySoulManager : MonoBehaviour
         layerTimeTimer = 0;
         realTimeTimer = 0;
         layerTime = layerTimeInitialValue;
-    }
-
-    private void OnDestroy()
-    {
         ResetObjectPositions();
     }
 
     private void RealTimeTick()
     {
         realDateTime = realDateTime.AddMinutes(1);
-        realTimeLabel = realDateTime.ToString("HH:mm");
+        clock.text = realDateTime.ToString("HH:mm");
         if (realDateTime >= looseTime)
         {
             GameOver();
