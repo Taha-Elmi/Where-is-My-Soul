@@ -19,6 +19,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     public double realTimePeriod;
     public double layerTimePeriod;
     public GameObject theKid;
+    public Text layerText;
 
     private float realTimeTimer;
     private DateTime realDateTime;
@@ -41,8 +42,9 @@ public class WhereIsMySoulManager : MonoBehaviour
     void Start()
     {
         layer = 3;
+        layerText.text = layer.ToString();
         soul = 0;
-        maxSouls = 16;
+        maxSouls = 15;
         fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
         fallTime = 0;
         stars = starParent.transform.GetComponentsInChildren<Transform>(true);
@@ -173,6 +175,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
+        layerText.text = layer.ToString();
         ResetObjectPositions();
     }
 
