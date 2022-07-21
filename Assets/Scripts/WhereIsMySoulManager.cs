@@ -42,7 +42,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     void Start()
     {
         layer = 3;
-        layerText.text = layer.ToString();
+        layerText.text = "Layer: " + layer.ToString();
         soul = 0;
         maxSouls = 15;
         fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
@@ -64,7 +64,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     private void RealTimeTick()
     {
         realDateTime = realDateTime.AddMinutes(1);
-        clock.text = realDateTime.ToString("HH:mm");
+        clock.text = "Real Time:" + realDateTime.ToString("HH:mm:ss");
         if (realDateTime >= looseTime)
         {
             GameOver();
@@ -175,7 +175,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
-        layerText.text = layer.ToString();
+        layerText.text = "Layer: " + layer.ToString();
         ResetObjectPositions();
     }
 
