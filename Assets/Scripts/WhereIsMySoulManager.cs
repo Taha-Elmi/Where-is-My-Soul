@@ -56,7 +56,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         layerTimeTimer = 0;
         realTimeTimer = 0;
-        fallIconSpeed = -0.75;
+        fallIconSpeed = -0.78;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         ResetObjectPositions();
     }
