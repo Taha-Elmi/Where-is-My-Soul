@@ -25,7 +25,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     private static DateTime initialRealTime = new DateTime(2022, 10, 10, 0, 0, 0);
     private static int layerTimeInitialValue = 20;
     private static double realTimePeriodInitialValue = 0.25;
-    private static double fallTimePeriodInitialValue = 0.1;
+    private static double fallTimePeriodInitialValue = 0.2;
     private static string deathSceneName = "death"; 
     private static string awakeningSceneName = "awakening";
     private float layerTimeTimer;
