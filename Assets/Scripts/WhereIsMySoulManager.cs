@@ -188,7 +188,10 @@ public class WhereIsMySoulManager : MonoBehaviour
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         layerText.text = "layer: " + layer.ToString();
-        ResetObjectPositions();
+        if (SceneManager.GetActiveScene().name.EndsWith("1"))
+        {
+            ResetObjectPositions();
+        }
     }
 
     private void ResetObjectPositions()
