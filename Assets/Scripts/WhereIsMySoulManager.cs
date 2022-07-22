@@ -33,7 +33,6 @@ public class WhereIsMySoulManager : MonoBehaviour
     private float layerTimeTimer;
     private Transform[] stars;
     private Transform[] soulGrabbers;
-    private FillStar[] fillStars;
     private int currentStar;
     private int currentSoulGrabber;
     private float fallTime;
@@ -67,10 +66,13 @@ public class WhereIsMySoulManager : MonoBehaviour
             currentSoulGrabber = 1;
             ResetObjectPositions();
         }
+        else if (SceneManager.GetActiveScene().name.EndsWith("2"))
+        {
+            maxSouls = 6;
+        }
         else if (SceneManager.GetActiveScene().name.EndsWith("3"))
         {
             maxSouls = 3;
-            fillStars = starParent.GetComponentsInChildren<FillStar>();
         }
     }
 
@@ -155,18 +157,11 @@ public class WhereIsMySoulManager : MonoBehaviour
                 ObjectFall();
                 fallTime = 0;
             }
-            
-            if (soul >= maxSouls)
-            {
-                upLayer();
-            }
         }
-        else if (SceneManager.GetActiveScene().name.EndsWith("3"))
+        
+        if (soul >= maxSouls)
         {
-            if (checkIfLayer3IsFinished())
-            {
-                upLayer();
-            }
+            upLayer();
         }
     }
 
@@ -233,18 +228,5 @@ public class WhereIsMySoulManager : MonoBehaviour
         color = sky1.color;
         color.a = 1;
         sky1.color = color;
-    }
-
-    private bool checkIfLayer3IsFinished()
-    {
-        foreach (FillStar fillStar in fillStars)
-        {
-            if (!fillStar.activated)
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
