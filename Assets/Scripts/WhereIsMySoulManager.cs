@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 
 public class WhereIsMySoulManager : MonoBehaviour
 {
-    public int layer;
     public int soul;
     public Text clock;
     public SpriteRenderer fallIcon;
@@ -20,9 +19,11 @@ public class WhereIsMySoulManager : MonoBehaviour
     public double layerTimePeriod;
     public GameObject theKid;
     public Text layerText;
+    
+    private static int layer = 3;
 
-    private float realTimeTimer;
-    private DateTime realDateTime;
+    private static float realTimeTimer;
+    private static DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private static DateTime initialRealTime = new DateTime(2022, 10, 10, 0, 0, 0);
     private static int layerTimeInitialValue = 20;
@@ -36,21 +37,16 @@ public class WhereIsMySoulManager : MonoBehaviour
     private int currentStar;
     private int currentSoulGrabber;
     private float fallTime;
-    public double fallIconSpeed;
+    private static double fallIconSpeed;
     
     // Start is called before the first frame update
     void Start()
     {
-        layer = 3;
-        layerText.text = "Layer: " + layer.ToString();
+        layerText.text = "layer: " + layer.ToString();
         soul = 0;
         maxSouls = 15;
         fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
         fallTime = 0;
-        stars = starParent.transform.GetComponentsInChildren<Transform>(true);
-        currentStar = 1;
-        soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
-        currentSoulGrabber = 1;
         realDateTime = initialRealTime;
         layerTimePeriod = 1;
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
@@ -58,7 +54,15 @@ public class WhereIsMySoulManager : MonoBehaviour
         realTimeTimer = 0;
         fallIconSpeed = -0.78;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
-        ResetObjectPositions();
+        
+        if (SceneManager.GetActiveScene().name.EndsWith("1"))
+        {
+            stars = starParent.transform.GetComponentsInChildren<Transform>(true);
+            currentStar = 1;
+            soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
+            currentSoulGrabber = 1;
+            ResetObjectPositions();
+        }
     }
 
     private void RealTimeTick()
@@ -119,7 +123,6 @@ public class WhereIsMySoulManager : MonoBehaviour
     {
         sky1.color -= new Color(0, 0, 0, Time.deltaTime / layerTime);
 
-        fallTime += 1.0f * Time.deltaTime;
         realTimeTimer += 1.0f * Time.deltaTime;
         layerTimeTimer += 1.0f * Time.deltaTime;
 
@@ -134,15 +137,24 @@ public class WhereIsMySoulManager : MonoBehaviour
             fallIcon.transform.Translate(0, (float)fallIconSpeed * Time.deltaTime, 0);
             realTimeTimer = 0;
         }
-        if (fallTime >= fallPeriod)
+
+        if (SceneManager.GetActiveScene().name.EndsWith("1"))
         {
-            ObjectFall();
-            fallTime = 0;
+            fallTime += 1.0f * Time.deltaTime;
+            if (fallTime >= fallPeriod)
+            {
+                ObjectFall();
+                fallTime = 0;
+            }
+            
+            if (soul >= maxSouls)
+            {
+                upLayer();
+            }
         }
-        
-        if (soul >= maxSouls)
+        else if (SceneManager.GetActiveScene().name.EndsWith("3"))
         {
-            upLayer();
+            
         }
     }
 
@@ -175,7 +187,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
-        layerText.text = "Layer: " + layer.ToString();
+        layerText.text = "layer: " + layer.ToString();
         ResetObjectPositions();
     }
 
