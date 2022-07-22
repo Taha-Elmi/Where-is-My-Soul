@@ -474,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.01
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -482,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9566613
+      value: 0.9983619
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -494,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.29120314
+      value: 0.057215504
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 33.86
+      value: 6.56
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
@@ -1035,7 +1035,6 @@ MonoBehaviour:
   manager: {fileID: 467382807}
   theKid: {fileID: 1278468587}
   star: {fileID: 1430016593}
-  fullStar: {fileID: 21300000, guid: c16e06707265e584c86f4a2cc94cf11f, type: 3}
   activated: 0
 --- !u!4 &1588092210 stripped
 Transform:
@@ -1062,7 +1061,6 @@ MonoBehaviour:
   manager: {fileID: 467382807}
   theKid: {fileID: 1278468587}
   star: {fileID: 1430016593}
-  fullStar: {fileID: 21300000, guid: c16e06707265e584c86f4a2cc94cf11f, type: 3}
   activated: 0
 --- !u!1 &1745688952
 GameObject:
@@ -1315,7 +1313,6 @@ MonoBehaviour:
   manager: {fileID: 467382807}
   theKid: {fileID: 1278468587}
   star: {fileID: 1430016593}
-  fullStar: {fileID: 21300000, guid: c16e06707265e584c86f4a2cc94cf11f, type: 3}
   activated: 0
 --- !u!1001 &2146635953
 PrefabInstance:
@@ -1338,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 1.03
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1383,7 +1380,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2318412799973233502, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_Name
-      value: star 2
+      value: star 2 (0)
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_RootOrder
@@ -1395,7 +1392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.7
+      value: -2.37
       objectReference: {fileID: 0}
     - target: {fileID: 3695956784060593983, guid: db192cb5adbd23b4ea5b602f76319a9e, type: 3}
       propertyPath: m_LocalPosition.z
