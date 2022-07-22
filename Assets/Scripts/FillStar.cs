@@ -18,7 +18,7 @@ public class FillStar : MonoBehaviour
         activated = false;
         _color = GetComponent<SpriteRenderer>().color;
         GetComponent<SpriteRenderer>().color = Color.gray;
-        SetPosition();
+        // SetPosition();
     }
 
     private void Update()
@@ -28,7 +28,7 @@ public class FillStar : MonoBehaviour
         {
             activated = true;
             GetComponent<SpriteRenderer>().color = _color;
-            star.transform.position = new Vector3(-5, -3, 0);
+            star.transform.position = new Vector3(-6.63f, -1.68f, 0);
             star.transform.rotation = new Quaternion(0, 0, 0, 0);
 
             manager.soul++;

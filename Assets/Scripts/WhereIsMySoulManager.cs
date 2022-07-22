@@ -199,13 +199,17 @@ public class WhereIsMySoulManager : MonoBehaviour
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         layerText.text = "layer: " + layer.ToString();
-        if (layer % 2 == 1)
+        if (layer % 3 == 0)
         {
             SceneManager.LoadScene("GameScene1");
         }
-        else
+        else if (layer % 3 == 2)
         {
             SceneManager.LoadScene("GameScene3");
+        }
+        else
+        {
+            SceneManager.LoadScene("GameScene2");
         }
     }
 
