@@ -15,6 +15,14 @@ public class changeScene : MonoBehaviour
             WhereIsMySoulManager.layer = 3;
             WhereIsMySoulManager.realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
         }
+
+        if (SceneManager.GetActiveScene().name.Equals("SleepAgain") || SceneManager.GetActiveScene().name.Equals("death"))
+        {
+	        GameObject obj = GameObject.Find("AudioManager");
+	        obj.GetComponent<AudioSource>().Stop();
+	        Destroy(obj);
+        }
+        
         SceneManager.LoadScene(sceneName);
         Destroy(this);
 	}
