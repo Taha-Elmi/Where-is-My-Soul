@@ -19,13 +19,12 @@ public class WhereIsMySoulManager : MonoBehaviour
     public GameObject theKid;
     public Text layerText;
     
-    private static int layer = 3;
+    public static int layer = 3;
     private static double fallPeriod;
     private static double realTimePeriod;
     private static float realTimeTimer = 0;
-    private static DateTime realDateTime = initialRealTime;
+    public static DateTime realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
-    private static DateTime initialRealTime = new DateTime(2022, 10, 10, 0, 0, 0);
     private static int layerTimeInitialValue = 20;
     private static double realTimePeriodInitialValue = 0.25;
     private static double fallTimePeriodInitialValue = 0.2;
@@ -58,7 +57,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         
         if (SceneManager.GetActiveScene().name.EndsWith("1"))
         {
-            maxSouls = 15;
+            maxSouls = 26 - ((layer - 1) * 2);
             stars = starParent.transform.GetComponentsInChildren<Transform>(true);
             currentStar = 1;
             soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
@@ -67,7 +66,7 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name.EndsWith("2"))
         {
-            maxSouls = 15;
+            maxSouls = 20 - ((layer - 1) * 2);
         }
         else if (SceneManager.GetActiveScene().name.EndsWith("3"))
         {
@@ -171,6 +170,8 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void GameOver()
     {
+        layer = 3;
+        ResetForNewLayer();
         SceneManager.LoadScene(deathSceneName);
     }
 
@@ -187,6 +188,8 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void Win()
     {
+        layer = 3;
+        ResetForNewLayer();
         SceneManager.LoadScene(awakeningSceneName);
     }
 

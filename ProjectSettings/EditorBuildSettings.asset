@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene3.unity
     guid: 1c21189c98a2f98409bbb242a9e653b1
   - enabled: 1
+    path: Assets/Scenes/SleepAgain.unity
+    guid: 43ea0fab270551944bc478cda37122e0
+  - enabled: 1
     path: Assets/Scenes/GameScene2.unity
     guid: 9d5e9a8082f7a2048a7b00e8703fb49e
   m_configObjects: {}

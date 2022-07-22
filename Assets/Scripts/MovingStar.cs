@@ -26,7 +26,7 @@ public class MovingStar : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.gray;
         activated = false;
 
-        speed = 2;
+        speed = 3;
     }
     
     private void Update()
