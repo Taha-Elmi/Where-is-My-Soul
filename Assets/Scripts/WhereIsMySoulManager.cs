@@ -22,8 +22,8 @@ public class WhereIsMySoulManager : MonoBehaviour
     private static int layer = 3;
     private static double fallPeriod;
     private static double realTimePeriod;
-    private static float realTimeTimer;
-    private static DateTime realDateTime;
+    private static float realTimeTimer = 0;
+    private static DateTime realDateTime = initialRealTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private static DateTime initialRealTime = new DateTime(2022, 10, 10, 0, 0, 0);
     private static int layerTimeInitialValue = 20;
@@ -46,11 +46,9 @@ public class WhereIsMySoulManager : MonoBehaviour
         soul = 0;
         fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
         fallTime = 0;
-        realDateTime = initialRealTime;
         layerTimePeriod = 1;
         realTimePeriod = realTimePeriodInitialValue + ((layer - 1) * 0.25);
         layerTimeTimer = 0;
-        realTimeTimer = 0;
         fallIconSpeed = -0.78;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         
