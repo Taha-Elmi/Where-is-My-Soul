@@ -24,7 +24,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     private static double realTimePeriod;
     private static float realTimeTimer = 0;
     public static DateTime realDateTime = new DateTime(2022, 10, 10, 0, 0, 0);
-    private static DateTime looseTime = new DateTime(2022, 10, 10, 0, 20, 0);
+    private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
     private static int layerTimeInitialValue = 20;
     private static double realTimePeriodInitialValue = 0.25;
     private static double fallTimePeriodInitialValue = 0.2;
