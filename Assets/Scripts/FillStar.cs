@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 public class FillStar : MonoBehaviour
 {
@@ -12,19 +12,20 @@ public class FillStar : MonoBehaviour
     public bool activated;
     
     private Color _color;
+    private Random _random = new Random();
 
     private void Start()
     {
         activated = false;
         _color = GetComponent<SpriteRenderer>().color;
         GetComponent<SpriteRenderer>().color = Color.gray;
-        // SetPosition();
+        SetPosition();
     }
 
     private void Update()
     {
         if (!activated && Vector3.Distance(transform.position, star.transform.position) < 0.1
-                       && Math.Abs(transform.rotation.z - star.transform.rotation.z) < 0.1)
+                       && Math.Abs((transform.rotation.z - star.transform.rotation.z) % 360) < 0.1)
         {
             activated = true;
             GetComponent<SpriteRenderer>().color = _color;
@@ -41,23 +42,40 @@ public class FillStar : MonoBehaviour
 
     private void SetPosition()
     {
+        /* didn't work
         float y = 0;
         if (gameObject.name.EndsWith("(0)"))
         {
-            y = Random.Range(-4.3f, -2.3f);
+            y = GetRandomInRange(-4.3f, -2.3f);
         }
         else if (gameObject.name.EndsWith("(1)"))
         {
-            y = Random.Range(-0.3f, 1.0f);
+            y = GetRandomInRange(-0.3f, 1.0f);
         }
         else if (gameObject.name.EndsWith("(2)"))
         {
-            y = Random.Range(3.0f, 4.0f);
+            y = GetRandomInRange(3.0f, 4.0f);
         }
 
-        float r = Random.Range(0, 360);
+        float r = _random.Next(360);
         
         transform.position = new Vector3(2.6f, y, 0);
         transform.rotation = new Quaternion(0, 0, r, 0);
+        */
+
+        float[] nums = {25, 78, 100, 120, 150, 180, 210, 250, 280, 310, 240};
+
+        int num = _random.Next() % nums.Length;
+
+        transform.rotation.Set(0, 0, nums[num], 0);
+    }
+
+    private float GetRandomInRange(float a, float b)
+    {
+        float range = b - a;
+        float num = (float)_random.NextDouble();
+        num *= range;
+        num += a;
+        return num;
     }
 }
