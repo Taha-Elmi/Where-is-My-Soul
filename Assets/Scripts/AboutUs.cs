@@ -36,6 +36,10 @@ public class AboutUs : MonoBehaviour
             noteBookPages[0] = Resources.Load<Sprite>("Sprites/AboutUs/aboutus");
        
     }
+    public void exit()
+	{
+        Application.Quit();
+	}
     public void closeButtonOnClick()
     {
         howToPlayObj.SetActive(false);
