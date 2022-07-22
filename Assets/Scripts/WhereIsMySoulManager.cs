@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class WhereIsMySoulManager : MonoBehaviour
 {
+    public System.Random random;
     public int soul;
     public Text clock;
     public SpriteRenderer fallIcon;
@@ -68,12 +69,17 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name.EndsWith("2"))
         {
-            maxSouls = 6;
+            maxSouls = 15;
         }
         else if (SceneManager.GetActiveScene().name.EndsWith("3"))
         {
             maxSouls = 3;
         }
+    }
+	private void Awake()
+	{
+        random = new System.Random();
+
     }
 
     private void RealTimeTick()

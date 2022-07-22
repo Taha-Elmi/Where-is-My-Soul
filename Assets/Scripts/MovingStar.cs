@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 public class MovingStar : MonoBehaviour
 {
@@ -14,16 +14,19 @@ public class MovingStar : MonoBehaviour
     private Color _color;
     private void Start()
     {
-        float y = Random.Range(2.3f, 4.8f);
+
+		float y = manager.random.Next(2,5);
         Vector3 pos = transform.position;
         pos.y = y;
+        //float randomDeltaX=manager.random.Next(-2,2);
+        //pos.x = pos.x + randomDeltaX;
         transform.position = pos;
         
         _color = GetComponent<SpriteRenderer>().color;
         GetComponent<SpriteRenderer>().color = Color.gray;
         activated = false;
 
-        speed = 5;
+        speed = 2;
     }
     
     private void Update()
