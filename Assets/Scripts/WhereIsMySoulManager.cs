@@ -14,14 +14,13 @@ public class WhereIsMySoulManager : MonoBehaviour
     public int maxSouls;
     public GameObject starParent;
     public GameObject soulGrabberParent;
-    public double fallPeriod;
-    public double realTimePeriod;
     public double layerTimePeriod;
     public GameObject theKid;
     public Text layerText;
     
     private static int layer = 3;
-
+    private static double fallPeriod;
+    private static double realTimePeriod;
     private static float realTimeTimer;
     private static DateTime realDateTime;
     private static DateTime looseTime = new DateTime(2022, 10, 10, 6, 0, 0);
@@ -34,6 +33,7 @@ public class WhereIsMySoulManager : MonoBehaviour
     private float layerTimeTimer;
     private Transform[] stars;
     private Transform[] soulGrabbers;
+    private FillStar[] fillStars;
     private int currentStar;
     private int currentSoulGrabber;
     private float fallTime;
@@ -44,7 +44,6 @@ public class WhereIsMySoulManager : MonoBehaviour
     {
         layerText.text = "layer: " + layer.ToString();
         soul = 0;
-        maxSouls = 15;
         fallPeriod = fallTimePeriodInitialValue + ((layer - 1) * 0.1);
         fallTime = 0;
         realDateTime = initialRealTime;
@@ -55,13 +54,23 @@ public class WhereIsMySoulManager : MonoBehaviour
         fallIconSpeed = -0.78;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         
+        Color color = theKid.GetComponent<SpriteRenderer>().color;
+        Color newColor = new Color(color.r, color.g, color.b, 0.1f);
+        theKid.GetComponent<SpriteRenderer>().color = newColor;
+        
         if (SceneManager.GetActiveScene().name.EndsWith("1"))
         {
+            maxSouls = 15;
             stars = starParent.transform.GetComponentsInChildren<Transform>(true);
             currentStar = 1;
             soulGrabbers = soulGrabberParent.GetComponentsInChildren<Transform>(true);
             currentSoulGrabber = 1;
             ResetObjectPositions();
+        }
+        else if (SceneManager.GetActiveScene().name.EndsWith("3"))
+        {
+            maxSouls = 3;
+            fillStars = starParent.GetComponentsInChildren<FillStar>();
         }
     }
 
@@ -154,13 +163,15 @@ public class WhereIsMySoulManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name.EndsWith("3"))
         {
-            
+            if (checkIfLayer3IsFinished())
+            {
+                upLayer();
+            }
         }
     }
 
     public void GameOver()
     {
-        ResetObjectPositions();
         SceneManager.LoadScene(deathSceneName);
     }
 
@@ -177,7 +188,6 @@ public class WhereIsMySoulManager : MonoBehaviour
 
     public void Win()
     {
-        ResetObjectPositions();
         SceneManager.LoadScene(awakeningSceneName);
     }
 
@@ -188,9 +198,13 @@ public class WhereIsMySoulManager : MonoBehaviour
         soul = 0;
         layerTime = layerTimeInitialValue + ((layer - 1) * 5);
         layerText.text = "layer: " + layer.ToString();
-        if (SceneManager.GetActiveScene().name.EndsWith("1"))
+        if (layer % 2 == 1)
         {
-            ResetObjectPositions();
+            SceneManager.LoadScene("GameScene1");
+        }
+        else
+        {
+            SceneManager.LoadScene("GameScene3");
         }
     }
 
@@ -219,5 +233,18 @@ public class WhereIsMySoulManager : MonoBehaviour
         color = sky1.color;
         color.a = 1;
         sky1.color = color;
+    }
+
+    private bool checkIfLayer3IsFinished()
+    {
+        foreach (FillStar fillStar in fillStars)
+        {
+            if (!fillStar.activated)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

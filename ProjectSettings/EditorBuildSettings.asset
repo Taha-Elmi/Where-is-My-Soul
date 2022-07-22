@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/awakening.unity
     guid: 5211fc4722a80554cbb44e91c848b8af
+  - enabled: 1
+    path: Assets/Scenes/GameScene3.unity
+    guid: 1c21189c98a2f98409bbb242a9e653b1
   m_configObjects: {}
