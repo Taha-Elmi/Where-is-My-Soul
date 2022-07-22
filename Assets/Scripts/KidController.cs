@@ -16,7 +16,7 @@ public class KidController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.D) && transform.position.x < 8.5)
+        if (Input.GetKey(KeyCode.D) && transform.position.x < 6.2)
         {
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
