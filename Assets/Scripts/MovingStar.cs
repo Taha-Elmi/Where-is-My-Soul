@@ -33,6 +33,8 @@ public class MovingStar : MonoBehaviour
         {
             float y = transform.position.y;
             transform.position = new Vector3(7.25f, y, 0);
+            GetComponent<SpriteRenderer>().color = Color.gray;
+            activated = false;
         }
     }
 
@@ -40,7 +42,7 @@ public class MovingStar : MonoBehaviour
     {
         if (!activated)
         {
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
             GetComponent<SpriteRenderer>().color = _color;
             activated = true;
             
